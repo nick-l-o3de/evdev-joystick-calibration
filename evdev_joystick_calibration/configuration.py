@@ -28,7 +28,7 @@ def apply(dev, conf):
     print("\rConfiguration for", dev.name)
     for conf_code in conf:
         print(conf[conf_code])
-        dev.set_absinfo(int(conf_code), min=conf[conf_code].minimum, max=conf[conf_code].maximum)
+        dev.set_absinfo(int(conf_code), min=conf[conf_code].minimum, max=conf[conf_code].maximum, flat=conf[conf_code].flat)
 
 
 def __get_name(name):
