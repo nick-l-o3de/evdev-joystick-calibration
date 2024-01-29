@@ -3,3 +3,7 @@
 /.directory
 /.idea
 /.idea/
+
+# the following makes it compatible with the vscode python env without much configuration.
+/**/__pycache__
+/.vscode
