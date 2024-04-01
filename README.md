@@ -1,10 +1,18 @@
 # evdev-joystick-calibration
 Run, pick up the gamepad and turn sticks with triggers around. 
+
+Note that this script was originally developed by 
+Dima Kompot, <virusmater@gmail.com> and forked from that repository by
+Nick Lawson, <70027408+nick-l-o3de@users.noreply.github.com> when the original author
+closed their original repo and pointed everyone at the fork.  
+
+Nick_L: "I guess I inherited this via the rule of you touch it you maintain it"
+
 ```bash
 evdev-joystick-calibration -h
 usage: evdev-joystick-calibration [-h] [-l] [-c]
 
-Pick up the gamepad and turn sticks with triggers around
+Pick up the gamepad and turn sticks with triggers around.  Includes deadzone calibration.
 
 optional arguments:
   -h, --help       show this help message and exit
@@ -13,44 +21,70 @@ optional arguments:
 ```
 # install
 ```bash
-kompot@pc:~$ sudo apt install python3-pip git -y
-kompot@pc:~$ sudo pip3 install git+https://github.com/Virusmater/evdev-joystick-calibration
+vektuz@pc:~$ sudo apt install python3-pip git -y
+vektuz@pc:~$ sudo pip3 install git+https://github.com/nick-l-o3de/evdev-joystick-calibration
 ```
+
+Alternatively, if you don't want to install it you can clone the repo, and run it as a module, ie
+```bash
+vektuz@pc:~$ git clone https://github.com/nick-l-o3de/evdev-joystick-calibration.git
+vektuz@pc:~$ cd evdev-joystick-calibration
+vektuz@pc:~$ python -m evdev-joystick-calibration
+```
+
+
 # example
 ## calibrate
 ```bash
-kompot@pc:~$ evdev-joystick-calibration -c
+vektuz@pc:~$ evdev-joystick-calibration
 Available devices:
-0 Nintendo Wii Remote Classic Controller
-2 Nintendo Wii Remote IR
-3 Nintendo Wii Remote Accelerometer
-4 Wii U GameCube Adapter Port 1
+0 Microsoft X-Box 360 pad
 Pick one device for the calibration: 0
-Move sticks and triggers of Nintendo Wii Remote Classic Controller to max and min positions.
-Press any button to apply.
-Configuration for Nintendo Wii Remote Classic Controller
-analog: ABS_HAT1Y  min:-28 max:25
-analog: ABS_HAT1X  min:-26 max:26
-analog: ABS_HAT2X  min:-28 max:24
-analog: ABS_HAT2Y  min:-28 max:24
-analog: ABS_HAT3X  min:6 max:46
-analog: ABS_HAT3Y  min:2 max:40
-Configuration for Nintendo Wii Remote Classic Controller saved at /home/kompot/.config/evdev-joystick-calibration/NintendoWiiRemoteClassicController.json
+Move sticks and triggers of Microsoft X-Box 360 pad to max and min positions. 
+Press any button for next step.
+analog: ABS_X min:-32768 max:32767 flat:0
+Dead zone calibration (press a button to skip)
+For each stick, quickly flick that stick to a diagonal (NE, NW, SE, or SW) and release it and let it recenter
+Wait a moment, and then repeat this with a different stick and different diagonal.
+Make sure to leave it alone for a moment after each release.
+Do this until no more new dead zones or expansions are reported, then press any button.
+ABS_RY  =  -1620         Initial Deadzone for  ABS_RX  is  1401.5
+Initial Deadzone for  ABS_RY  is  1619.5
+ABS_RX  =  -2960         Expanding deadzone for  ABS_RX  to  2959.5
+ABS_RX  =  -363         Initial Deadzone for  ABS_Y  is  582.5
+ABS_RY  =  -57         Initial Deadzone for  ABS_X  is  2359.5
+ABS_X  =  1701         Expanding deadzone for  ABS_Y  to  2805.5
+ABS_RX  =  -3271         Expanding deadzone for  ABS_RX  to  3270.5
+ABS_RX  =  -1713         Expanding deadzone for  ABS_RY  to  2289.5
+ABS_RY  =  -3295         Expanding deadzone for  ABS_RY  to  3294.5
+ABS_Y  =  -3442         Initial Deadzone for  ABS_HAT0X  is  0.0
+Initial Deadzone for  ABS_HAT0Y  is  0.0
+Expanding deadzone for  ABS_Y  to  3441.5
+ABS_RY  =  -839         Expanding deadzone for  ABS_Y  to  3547.5
+Configuration for Microsoft X-Box 360 pad
+analog: ABS_X min:-32768 max:32767 flat:2418
+analog: ABS_RX min:-32768 max:32767 flat:3352
+analog: ABS_Y min:-32768 max:32767 flat:3636
+analog: ABS_RY min:-32768 max:32767 flat:3376
+analog: ABS_RZ min:0 max:255 flat:0
+analog: ABS_Z min:0 max:255 flat:0
+analog: ABS_HAT0X min:-1 max:1 flat:0
+analog: ABS_HAT0Y min:-1 max:1 flat:0
+Configuration for Microsoft X-Box 360 pad saved at /home/vektuz/.config/evdev-joystick-calibration/MicrosoftX-Box360pad.json
 ```
 ## load
 ```bash
-kompot@pc:~$ evdev-joystick-calibration -l
-Configuration for Nintendo Wii Remote Classic Controller loaded from /home/kompot/.config/evdev-joystick-calibration/NintendoWiiRemoteClassicController.json
-Configuration for Nintendo Wii Remote Classic Controller
-analog: ABS_HAT1Y  min:-28 max:25
-analog: ABS_HAT1X  min:-26 max:26
-analog: ABS_HAT2X  min:-28 max:24
-analog: ABS_HAT2Y  min:-28 max:24
-analog: ABS_HAT3X  min:6 max:46
-analog: ABS_HAT3Y  min:2 max:40
-Skip Nintendo Wii Remote IR
-Skip Nintendo Wii Remote Accelerometer
-Skip Wii U GameCube Adapter Port 1
+vektuz@pc:~$ evdev-joystick-calibration -l
+Configuration for Microsoft X-Box 360 pad loaded from /home/vektuz/.config/evdev-joystick-calibration/MicrosoftX-Box360pad.json
+Configuration for Microsoft X-Box 360 pad
+analog: ABS_X min:-32768 max:32767 flat:2418
+analog: ABS_RX min:-32768 max:32767 flat:3352
+analog: ABS_Y min:-32768 max:32767 flat:3636
+analog: ABS_RY min:-32768 max:32767 flat:3376
+analog: ABS_RZ min:0 max:255 flat:0
+analog: ABS_Z min:0 max:255 flat:0
+analog: ABS_HAT0X min:-1 max:1 flat:0
+analog: ABS_HAT0Y min:-1 max:1 flat:0
 ```
 # requirements
 https://github.com/gvalkov/python-evdev
