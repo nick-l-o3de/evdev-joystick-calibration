@@ -58,7 +58,7 @@ def main():
             if event.type == ecodes.EV_ABS:
                 if event.code not in min_max:
                     analog_name = str(evdev.categorize(event)).partition(", ")[2]
-                    min_max[event.code] = MinMaxItem(analog_name, event.value, event.value)
+                    min_max[event.code] = MinMaxItem(analog_name, event.value, event.value, 0)
                 if min_max[event.code].minimum > event.value:
                     min_max[event.code].minimum = event.value
                 if min_max[event.code].maximum < event.value:
